@@ -1,0 +1,127 @@
+---
+title: "TRABAJO FINAL"
+author: "Miguel Muñoz"
+date: "07/21/2021"
+output: html_document
+---
+
+Trabajo final
+
+Introducción: 
+
+La democracia es el modelo que más éxito ha tenido en el mundo internacional. Sin embargo, no todas las naciones democráticas han logrado consolidar dicho sistema e incluso existe mucho recelo al respecto. Sin ir más lejos, a finales de 2020, un 67% de hogares encuestados señaló que la democracia funcionaba mal o muy mal en el Perú (El Comercio, 2021). Estos niveles de desconfianza se incrementan si tenemos en cuenta el mal manejo que, en general, se ha tenido de la pandemia y los desajustes políticos más recientes (France 24, 2020).
+Esta cifra invita a plantearse una interrogante: ¿qué factores podrían incidir en que se prefiera a la democracia en el Perú, ante otros modelos? El tema del presente trabajo entonces se abocará a entender la legitimidad de la democracia en función de sus instituciones.
+Por lo tanto, como respuesta a esta interrogante, se plantea la siguiente hipótesis: la democracia en el Perú se debilita en función de una percepción negativa de la atención de las instituciones democráticas, en sectores como Educación, Salud y gobiernos subnacionales. 
+
+El objetivo principal de este trabajo es explicar qué tanto influye la percepción que se tiene de las instituciones en un menor respaldo a la democracia. Respecto de los objetivos específicos, para este caso, se plantean dos: primero, identificar la variación del nivel de aprobación de las instituciones señaladas como claves para validar la democracia en el Perú en 2020; y segundo, analizar en qué medida hacen variar la aprobación de la democracia.  
+
+La elección del tema de investigación responde a dos motivos: el primero es buscar interpretar la data al respecto de la problemática del rechazo de la democracia en el país, desde la ciencia política, es decir, analizando si alguna política de estado (tanto por acción como por omisión) llevada a cabo en un contexto convulso como el actual ha favorecido este  incremento en el rechazo. El segundo motivo es una preocupación particular debido a lo convulso del escenario político reciente, que ha mostrado las debilidades del sistema democrático en el país, y que sugiere la necesidad de cambios estructurales e institucionales a fin de recuperar ese valor tan importante para la continuidad del modelo democrático. Con respecto a los aportes que esta investigación puede ofrecer a la academia, este trabajo intenta probar cómo ciertas instituciones, más cercanas a la población y vistas como más esenciales son, al mismo tiempo, el nexo conductual entre el Estado y su población, por lo que, si se les percibe negativamente, puede impactar también en el respaldo a la democracia. 
+
+Con respecto a las definiciones, la democracia es entendida por autores como Dewey o Saenz y Rodriguez, como producto de la participación activa de la población y la igualdad de condiciones al participar en la arena política. Otros, como Paramio o Sartori, lo definen de manera minimalista, solo en función de la elección de representantes (Rodriguez, 2015). En última instancia, la democracia es el modelo que permite mayor participación de la población, respeto a las diferencias y permite la justa elección de representantes.  
+
+Metodología (máximo 1.5 página)
+
+En primer lugar, el presente trabajo de investigación tendrá un método no experimental pues se ha escogido una muestra y su análisis será en función a la realidad de dicha muestra. Además, se analizarán las variables de manera longitudinal de evolución de grupo, es decir, a través de un período de tiempo (un año), se irán analizando los cambios en espacios de tiempo más específicos (trimestres). La muestra que se ha elegido para este análisis es la población del Perú,  siendo esta, una muestra aleatoria simple. La investigación, por tanto, será de diseño inferencial explicativo pues buscará obtener a partir de una serie de variables particulares, una respuesta más o menos general sobre la problemática antes planteada. 
+
+El instrumento  de aplicación utilizado para esta investigación será un cuestionario: el empleado por la Encuesta Nacional de Hogares 2020, del Instituto Nacional de Estadística e Informática, en el módulo que se encarga de recoger datos acerca de Gobernabilidad.
+
+Para el análisis, además, se emplearán dos técnicas estadísticas: el análisis de cluster jerarquizado,  para agrupar las variables de manera más eficaz; y un modelo de regresión logística múltiple, a fin de explicar de qué manera las variables latentes construidas: atención en gobiernos subnacionales, atención en sector salud y atención en sector educación, afectan la preferencia por la democracia durante 2020.  
+
+
+```{r warning=FALSE}
+library(rio)
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(NbClust)
+library(tidyr)
+```
+
+```{r}
+enaho = import("enaho_2020.sav")
+str(enaho$P9)
+enaho$P9 = as.factor(enaho$P9)
+levels(enaho$P9) = c("Siempre democracia" , "A veces" , "No importa", "No sabe", "NA")
+table(enaho$P9)
+```
+
+```{r}
+str(enaho$`P2B$15`)
+enaho$`P2B$15` = as.factor(enaho$`P2B$15`)
+levels(enaho$`P2B$15`) = c("Si" , "No")
+table(enaho$`P2B$15`)
+```
+
+```{r}
+str(enaho$`P2B$16`)
+enaho$`P2B$16` = as.factor(enaho$`P2B$16`)
+levels(enaho$`P2B$16`) = c("Si" , "No")
+table(enaho$`P2B$16`)
+```
+
+```{r}
+str(enaho$`P2B$17`)
+enaho$`P2B$17` = as.factor(enaho$`P2B$17`)
+levels(enaho$`P2B$17`) = c("Si" , "No")
+table(enaho$`P2B$17`)
+```
+
+```{r}
+str(enaho$`P2B$01`)
+enaho$`P2B$01` = as.factor(enaho$`P2B$01`)
+levels(enaho$`P2B$01`) = c("Si" , "No")
+table(enaho$`P2B$01`)
+```
+
+```{r}
+str(enaho$`P2B$02`)
+enaho$enaho$`P2B$02` = as.factor(enaho$`P2B$02`)
+levels(enaho$`P2B$02`) = c("Si" , "No")
+table(enaho$`P2B$02`)
+```
+
+```{r}
+str(enaho$`P2B$13`)
+enaho$`P2B$13` = as.factor(enaho$`P2B$13`)
+levels(enaho$`P2B$13`) = c("Si" , "No")
+table(enaho$`P2B$13`)
+```
+
+```{r}
+ejercicio.2 = subset(enaho, select = c(P9, `P2B$15`, `P2B$16`,
+                                       `P2B$17`, `P2B$01`,`P2B$02`,`P2B$13`))
+```
+
+
+```{r}
+ejercicio.2 = na.omit(ejercicio.2)
+
+```
+
+
+
+```{r}
+library(polycor)
+corMatrix=polycor::hetcor(ejercicio.2)$correlations
+corMatrix
+```
+
+```{r}
+library(psych)
+KMO(corMatrix) 
+```
+
+
+
+Bibliografía
+
+Amaya, A. (18 de noviembre de 2020). El tercer presidente de Perú en una semana promete devolverle la confianza a la ciudadanía. France 24. https://www.france24.com/es/am%C3%A9rica-latina/20201118-peru-crisis-presidente-sagasti
+
+
+Dzul, M. (2010). Aplicación básica de los métodos científicos: diseño no-experimental. [Diapositiva Power Point]. https://www.uaeh.edu.mx/docencia/VI_Presentaciones/licenciatura_en_mercadotecnia/fundamentos_de_metodologia_investigacion/PRES38.pdf
+
+
+IPE. (26 de abril de 2021). Empeora la percepción de los peruanos en cuanto a gobernabilidad y democracia en el país tras la pandemia. El Comercio. https://elcomercio.pe/economia/empeora-la-percepcion-de-los-peruanos-en-cuanto-a-gobernabilidad-y-democracia-en-el-pais-tras-la-pandemia-democracia-elecciones-2021-pandemia-desconfianza-noticia/?ref=ecr
+
+Rodriguez, K. (2015). Democracia y tipos de democracia. Universidad Autónoma de Nuevo León. http://eprints.uanl.mx/8477/1/Documento2.pdf
+
